@@ -2,10 +2,6 @@
 using Microsoft.Extensions.Logging;
 using OGSSurvey.Service.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OGSSurvey.Service.Controllers
 {
@@ -15,40 +11,38 @@ namespace OGSSurvey.Service.Controllers
     {
         private readonly ILogger<ContractFinderConroller> _logger;
         private readonly IRepository _repository;
+        private readonly IContractMapper _contractMapper;
 
-        public ContractFinderConroller(ILogger<ContractFinderConroller> logger, IRepository repository)
+        public ContractFinderConroller(ILogger<ContractFinderConroller> logger, IRepository repository, IContractMapper contractMapper)
         {
             _logger = logger;
             _repository = repository;
+            _contractMapper = contractMapper;
         }
         [HttpGet("contractId")]
         public IActionResult FindContractById(int contractId)
         {
-            //try
-            //{
-
-            //    var policeLog = _repository.GetLog(id);
-            //    if (policeLog != null)
-            //    {
-            //        _logger.LogInformation("GetRequestLog Method Called for {Police Hareket Id} {Result}", id, "Success");
-            //        return Ok(policeLog.RequestXml);
-            //    }
-            //    else
-            //    {
-            //        _logger.LogInformation("GetRequestLog Method Called for {Police Hareket Id} {Result}", id, "Not Found");
-            //        return NotFound();
-            //    }
-            //    //return Ok("123123");
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogInformation("GetRequestLog Method Called for {Police Hareket Id} {Result}", id, ex.Message);
-            //}
-            //_logger.LogInformation("GetRequestLog Method Called for {Police Hareket Id} {Result}", id, "Bad Request");
-            //return BadRequest("Failed to get the log item");
-
-            var contract = _repository.GetContractById(contractId);
-
+            try
+            {
+                var contract = _repository.GetContractById(contractId);
+                var model = _contractMapper.MapContract(contract);
+                if (model != null)
+                {
+                    _logger.LogInformation("FindContractById Method Called for {Contract Id} {Result}", contractId, "Success");
+                    return Ok(model);
+                }
+                else
+                {
+                    _logger.LogInformation("FindContractById Method Called for {Contract Id} {Result}", contractId, "Not Found");
+                    return NotFound();
+                }                
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("FindContractById Method Called for {Contract Id} {Result}", contractId, ex.Message);
+            }
+            _logger.LogInformation("FindContractById Method Called for {Contract Id} {Result}", contractId, "Bad Request");
+            return BadRequest("Failed to get the contract!");
         }
     }
 }
