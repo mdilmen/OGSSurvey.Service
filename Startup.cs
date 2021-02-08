@@ -31,6 +31,7 @@ namespace OGSSurvey.Service
 
             services.AddControllers();
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IContractMapper, ContractMapper>();
             services.AddDbContext<Context>(cfg =>
             {
                 cfg.UseSqlServer(_config.GetConnectionString("ConnectionString"));

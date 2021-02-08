@@ -44,5 +44,55 @@ namespace OGSSurvey.Service.Controllers
             _logger.LogInformation("FindContractById Method Called for {Contract Id} {Result}", contractId, "Bad Request");
             return BadRequest("Failed to get the contract!");
         }
+        [HttpGet("guid")]
+        public IActionResult FindContractByGuid(Guid guid)
+        {
+            try
+            {
+                var contract = _repository.GetContractByGuid(guid);
+                var model = _contractMapper.MapContract(contract);
+                if (model != null)
+                {
+                    _logger.LogInformation("FindContractByGuid Method Called for {Contract guid} {Result}", guid, "Success");
+                    return Ok(model);
+                }
+                else
+                {
+                    _logger.LogInformation("FindContractByGuid Method Called for {Contract guid} {Result}", guid, "Not Found");
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("FindContractByGuid Method Called for {Contract guid} {Result}", guid, ex.Message);
+            }
+            _logger.LogInformation("FindContractByGuid Method Called for {Contract guid} {Result}", guid, "Bad Request");
+            return BadRequest("Failed to get the contract!");
+        }
+        [HttpGet("tcno")]
+        public IActionResult FindContractByTcNo(string tcno)
+        {
+            try
+            {
+                var contract = _repository.GetContractByTcNo(tcno);
+                var model = _contractMapper.MapContract(contract);
+                if (model != null)
+                {
+                    _logger.LogInformation("FindContractByTcNo Method Called for {Contract tcno} {Result}", tcno, "Success");
+                    return Ok(model);
+                }
+                else
+                {
+                    _logger.LogInformation("FindContractByTcNo Method Called for {Contract tcno} {Result}", tcno, "Not Found");
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("FindContractByTcNo Method Called for {Contract tcno} {Result}", tcno, ex.Message);
+            }
+            _logger.LogInformation("FindContractByTcNo Method Called for {Contract tcno} {Result}", tcno, "Bad Request");
+            return BadRequest("Failed to get the contract!");
+        }
     }
 }
