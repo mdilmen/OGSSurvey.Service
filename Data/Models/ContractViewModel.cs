@@ -10,7 +10,7 @@ namespace OGSSurvey.Service.Data.Models
 {
     public class ContractViewModel
     {
-
+        public Guid guid { get; set; }
         public string TCNO { get; set; }
 
 

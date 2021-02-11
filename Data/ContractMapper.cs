@@ -24,7 +24,9 @@ namespace OGSSurvey.Service.Data
                 Email = contract.SurveyUser.Email,
                 PhoneNumber = contract.SurveyUser.Phone,
                 FullName = contract.SurveyUser.FullName,
-                TCNO = contract.SurveyUser.TCNO
+                TCNO = contract.SurveyUser.TCNO,
+                guid = contract.Guid
+
             };
             if (spouse != null)
             {

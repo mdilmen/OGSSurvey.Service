@@ -1,6 +1,6 @@
 {
 	"ConnectionStrings": {
-		//"ConnectionString": "server=.\\SQLExpress;Database=Survey;Integrated Security=true;MultipleActiveResultSets=true;"
-		"ConnectionString": "server=10.65.100.42;Database=Survey;User Id=sa;password=Sh99m5ayneS2003;Trusted_Connection=False;MultipleActiveResultSets=true;"
+		"ConnectionString": "server=.\\SQLExpress;Database=Survey;Integrated Security=true;MultipleActiveResultSets=true;"
+		//"ConnectionString": "server=10.65.100.42;Database=Survey;User Id=sa;password=Sh99m5ayneS2003;Trusted_Connection=False;MultipleActiveResultSets=true;"
 	}
 }
